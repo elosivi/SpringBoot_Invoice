@@ -6,4 +6,4 @@ started 05/01/2022
 IDE used: Intellij'Idea
 
 SPEC:
-The manager of a DVD store wants to create an application to remotely manage his DVD stock (Extranet).
+To manage invoices for several clients
