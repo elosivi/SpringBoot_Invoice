@@ -10,7 +10,7 @@ public class InvoiceServiceMichel {
     private InvoiceRepository invoiceRepository = new InvoiceRepository();
 
     public void createInvoice(Invoice invoice){
-        invoice.setNumber("INV-" + ++lastNumber);
+        invoice.setNumber("INV_" + ++lastNumber);
         invoiceRepository.create(invoice);
     }
 }
