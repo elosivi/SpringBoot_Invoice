@@ -2,26 +2,27 @@ package com.mycompany.invoise.controller;
 
 import com.mycompany.invoise.App;
 import com.mycompany.invoise.entity.Invoice;
-import com.mycompany.invoise.service.InvoiceService;
-import com.mycompany.invoise.service.InvoiceServiceMichel;
+import com.mycompany.invoise.service.InvoiceServiceInterface;
+
 
 import java.util.Scanner;
 
-public class InvoiceControllerMichel {
+public class InvoiceControllerMichel implements InvoiceControllerInterface{
 
-    public static void addInvoiceUsingWeb(){
+    private InvoiceServiceInterface invoiceService;
+    @Override
+    public void createInvoice(){
         System.out.println( "What is the customer name?" );
         String customerName = "Customer from web";
         Invoice invoice = new Invoice();
         invoice.setCustomerName(customerName);
 
-        InvoiceServiceMichel invoiceServiceMichel = new InvoiceServiceMichel();
-        invoiceServiceMichel.createInvoice(invoice);
+        invoiceService.createInvoice(invoice);
 
         AddOne();
     }
 
-    public static void AddOne(){
+    public void AddOne(){
         System.out.println(" Add one more invoice? Y/N");
         Scanner sc = new Scanner(System.in);
         String response = sc.nextLine();

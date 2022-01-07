@@ -1,9 +1,8 @@
 package com.mycompany.invoise;
 
 import com.mycompany.invoise.controller.InvoiceController;
+import com.mycompany.invoise.controller.InvoiceControllerInterface;
 import com.mycompany.invoise.controller.InvoiceControllerMichel;
-import com.mycompany.invoise.entity.Invoice;
-
 
 import java.util.Scanner;
 
@@ -22,17 +21,21 @@ public class App
     }
 
     public static void choiceInvoiceConfiguration(){
+
+
         System.out.println(" What is your configuration? 1 ou 2 ?");
         Scanner sc = new Scanner(System.in);
         int configuration = sc.nextInt();
+        InvoiceControllerInterface invoiceController;
 
         if(configuration == 1){
-            InvoiceController invoiceController = new InvoiceController();
-            InvoiceController.addInvoiceUsingConsole();
+            //InvoiceController invoiceController = new InvoiceController();
+            invoiceController.createInvoice();
 
         }else if( configuration == 2) {
-            InvoiceControllerMichel invoiceControllerMichel = new InvoiceControllerMichel();
-            InvoiceControllerMichel.addInvoiceUsingWeb();
+            //InvoiceControllerMichel invoiceControllerMichel = new InvoiceControllerMichel();
+            invoiceController.createInvoice();
+
         }else{
             System.out.println("wrong choice, please try again");
             choiceInvoiceConfiguration();
