@@ -10,7 +10,15 @@ import java.util.Scanner;
 public class InvoiceControllerMichel implements InvoiceControllerInterface{
 
     private InvoiceServiceInterface invoiceService;
-    @Override
+
+    public InvoiceServiceInterface getInvoiceService() {
+        return invoiceService;
+    }
+
+    public void setInvoiceService(InvoiceServiceInterface invoiceService) {
+        this.invoiceService = invoiceService;
+    }
+
     public void createInvoice(){
         System.out.println( "What is the customer name?" );
         String customerName = "Customer from web";
