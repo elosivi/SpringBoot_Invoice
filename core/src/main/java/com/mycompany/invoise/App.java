@@ -34,7 +34,7 @@ public class App
 
         if(configuration == 1){
             //injection des dépendances
-            InvoiceController invoiceController = new InvoiceController(); //via cnosole
+            InvoiceController invoiceController = new InvoiceController(); //via console
             InvoiceService invoiceService = new InvoiceService();
             invoiceController.setInvoiceService(invoiceService); // injection de invoiceService dans le controller
             InvoiceRepository invoiceRepository = new InvoiceRepository();
