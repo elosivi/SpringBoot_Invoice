@@ -7,7 +7,7 @@ import com.mycompany.invoise.service.InvoiceServiceInterface;
 
 import java.util.Scanner;
 
-public class InvoiceController implements InvoiceControllerInterface{
+public class InvoiceControllerKeyboard implements InvoiceControllerInterface{
 
     private InvoiceServiceInterface invoiceService;
 

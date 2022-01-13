@@ -1,13 +1,13 @@
 package com.mycompany.invoise.controller;
 
-
 import com.mycompany.invoise.App;
 import com.mycompany.invoise.entity.Invoice;
 import com.mycompany.invoise.service.InvoiceServiceInterface;
 
+
 import java.util.Scanner;
 
-public class InvoiceControllerChambouleToutMagasin2 implements InvoiceControllerInterface{
+public class InvoiceControllerWeb implements InvoiceControllerInterface{
 
     private InvoiceServiceInterface invoiceService;
 
@@ -19,10 +19,9 @@ public class InvoiceControllerChambouleToutMagasin2 implements InvoiceController
         this.invoiceService = invoiceService;
     }
 
-    @Override
-    public void createInvoice() {
-        System.out.println( "use of a shower scan code" );
-        String customerName = "Customer from shower";
+    public void createInvoice(){
+        System.out.println( "What is the customer name?" );
+        String customerName = "Customer from web";
         Invoice invoice = new Invoice();
         invoice.setCustomerName(customerName);
 
