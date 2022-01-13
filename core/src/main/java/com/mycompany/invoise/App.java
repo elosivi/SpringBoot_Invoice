@@ -1,10 +1,13 @@
 package com.mycompany.invoise;
 
+import com.mycompany.invoise.controller.InvoiceControllerInterface;
 import com.mycompany.invoise.controller.InvoiceControllerKeyboard;
 import com.mycompany.invoise.controller.InvoiceControllerDouchette;
 import com.mycompany.invoise.controller.InvoiceControllerWeb;
+import com.mycompany.invoise.repository.InvoiceRepositoryInterface;
 import com.mycompany.invoise.repository.InvoiceRepositoryMemory;
 import com.mycompany.invoise.repository.InvoiceRepositoryDatabase;
+import com.mycompany.invoise.service.InvoiceServiceInterface;
 import com.mycompany.invoise.service.InvoiceServiceNumber;
 import com.mycompany.invoise.service.InvoiceServicePrefix;
 
@@ -26,51 +29,56 @@ public class App
 
     public static void choiceInvoiceConfiguration(){
 
-
-        System.out.println(" What is your configuration? 1(console) / 2 (web) / 3(web+ normal num invoice) / 4 (shower) ?");
         Scanner sc = new Scanner(System.in);
-        int configuration = sc.nextInt();
 
-        if(configuration == 1){
-            //injection des dépendances
-            InvoiceControllerKeyboard invoiceController = new InvoiceControllerKeyboard(); //via console
-            InvoiceServiceNumber invoiceService = new InvoiceServiceNumber();
-            invoiceController.setInvoiceService(invoiceService); // injection de invoiceService dans le controller
-            InvoiceRepositoryMemory invoiceRepository = new InvoiceRepositoryMemory();
-            invoiceService.setInvoiceRepository(invoiceRepository); // injection du repo dans le service
+        System.out.println(" Type de controller ? keyboard: k /web: w / douchette: d");
+        String controllerType = sc.nextLine();
 
-            invoiceController.createInvoice();
+        System.out.println(" Type de service ? number : n / prefix : p ");
+        String serviceType = sc.nextLine();
 
-        }else if( configuration == 2) {
-            InvoiceControllerWeb invoiceControllerWeb = new InvoiceControllerWeb(); // via web
-            InvoiceServicePrefix invoiceServiceMichel= new InvoiceServicePrefix();
-            invoiceControllerWeb.setInvoiceService(invoiceServiceMichel); // injection de invoiceServiceMichel dans le controller
-            InvoiceRepositoryDatabase invoiceRepositoryMichel = new InvoiceRepositoryDatabase();
-            invoiceServiceMichel.setInvoiceRepositoryMichel(invoiceRepositoryMichel); //Injection du repoMichel dans le service
+        System.out.println(" Type de repository ? memory :m / database : d ");
+        String repositoryType = sc.nextLine();
 
-            invoiceControllerWeb.createInvoice();
-
-        }else if( configuration == 3) {
-            InvoiceControllerWeb invoiceControllerChamboulleTout1 = new InvoiceControllerWeb(); //via web
-            InvoiceServiceNumber invoiceService = new InvoiceServiceNumber();
-            invoiceControllerChamboulleTout1.setInvoiceService(invoiceService); // injection de invoiceService avec numerotation normale des invoices dans le controller
-            InvoiceRepositoryDatabase invoiceRepositoryChamboulleTout1 = new InvoiceRepositoryDatabase();
-            invoiceService.setInvoiceRepository(invoiceRepositoryChamboulleTout1); //Injection du repoMichel dans le service
-
-            invoiceControllerChamboulleTout1.createInvoice();
-
-        }else if( configuration == 4) {
-            InvoiceControllerDouchette invoiceControllerDouchette = new InvoiceControllerDouchette(); //via scan code by shower
-            InvoiceServiceNumber invoiceService = new InvoiceServiceNumber();
-            invoiceControllerDouchette.setInvoiceService(invoiceService); // injection de invoiceService avec numerotation normale des invoices dans le controller
-            InvoiceRepositoryDatabase invoiceRepositoryChamboulleTout1 = new InvoiceRepositoryDatabase();
-            invoiceService.setInvoiceRepository(invoiceRepositoryChamboulleTout1); //Injection du repoMichel dans le service
-
-            invoiceControllerDouchette.createInvoice();
-        }else{
-            System.out.println("wrong choice, please try again");
-            choiceInvoiceConfiguration();
+        InvoiceControllerInterface invoiceController = null;
+        switch (controllerType){
+            case "k" :
+                invoiceController = new InvoiceControllerKeyboard();
+                break;
+            case "w" :
+                invoiceController = new InvoiceControllerWeb();
+                break;
+            case "d" :
+                invoiceController = new InvoiceControllerDouchette();
+                break;
         }
+
+        InvoiceServiceInterface invoiceService = null;
+        switch (serviceType){
+            case "n" :
+                invoiceService = new InvoiceServiceNumber();
+                break;
+            case "p" :
+                invoiceService = new InvoiceServicePrefix();
+                break;
+        }
+
+        InvoiceRepositoryInterface invoiceRepository = null;
+        switch(repositoryType){
+            case "m" :
+                invoiceRepository = new InvoiceRepositoryMemory();
+                break;
+            case "d" :
+                invoiceRepository = new InvoiceRepositoryDatabase();
+                break;
+        }
+
+        //injection dependance
+        invoiceController.setInvoiceService(invoiceService);
+        invoiceService.setInvoiceRepository(invoiceRepository);
+
+        invoiceController.createInvoice();
+
     }
 
 }

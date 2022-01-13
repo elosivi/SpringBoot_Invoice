@@ -7,20 +7,22 @@ public class InvoiceServicePrefix implements InvoiceServiceInterface{
 
     private static long lastNumber = 0L;
 
-    private InvoiceRepositoryInterface invoiceRepositoryMichel;
-
-    public InvoiceRepositoryInterface getInvoiceRepositoryMichel() {
-        return invoiceRepositoryMichel;
+    public InvoiceRepositoryInterface getInvoiceRepository() {
+        return invoiceRepository;
     }
 
-    public void setInvoiceRepositoryMichel(InvoiceRepositoryInterface invoiceRepositoryMichel) {
-        this.invoiceRepositoryMichel = invoiceRepositoryMichel;
+    public void setInvoiceRepository(InvoiceRepositoryInterface invoiceRepository) {
+        this.invoiceRepository = invoiceRepository;
     }
+
+    private InvoiceRepositoryInterface invoiceRepository;
+
+
 
     @Override
     public void createInvoice(Invoice invoice){
         invoice.setNumber("INV_" + ++lastNumber);
-        invoiceRepositoryMichel.create(invoice);
+        invoiceRepository.create(invoice);
     }
 }
 
