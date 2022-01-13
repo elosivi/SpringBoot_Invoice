@@ -1,13 +1,12 @@
 package com.mycompany.invoise;
 
-import com.mycompany.invoise.controller.InvoiceController;
-import com.mycompany.invoise.controller.InvoiceControllerChambouleToutMagasin2;
-import com.mycompany.invoise.controller.InvoiceControllerInterface;
-import com.mycompany.invoise.controller.InvoiceControllerMichel;
-import com.mycompany.invoise.repository.InvoiceRepository;
-import com.mycompany.invoise.repository.InvoiceRepositoryMichel;
-import com.mycompany.invoise.service.InvoiceService;
-import com.mycompany.invoise.service.InvoiceServiceMichel;
+import com.mycompany.invoise.controller.InvoiceControllerKeyboard;
+import com.mycompany.invoise.controller.InvoiceControllerDouchette;
+import com.mycompany.invoise.controller.InvoiceControllerWeb;
+import com.mycompany.invoise.repository.InvoiceRepositoryMemory;
+import com.mycompany.invoise.repository.InvoiceRepositoryDatabase;
+import com.mycompany.invoise.service.InvoiceServiceNumber;
+import com.mycompany.invoise.service.InvoiceServicePrefix;
 
 import java.util.Scanner;
 
@@ -34,40 +33,40 @@ public class App
 
         if(configuration == 1){
             //injection des dépendances
-            InvoiceController invoiceController = new InvoiceController(); //via console
-            InvoiceService invoiceService = new InvoiceService();
+            InvoiceControllerKeyboard invoiceController = new InvoiceControllerKeyboard(); //via console
+            InvoiceServiceNumber invoiceService = new InvoiceServiceNumber();
             invoiceController.setInvoiceService(invoiceService); // injection de invoiceService dans le controller
-            InvoiceRepository invoiceRepository = new InvoiceRepository();
+            InvoiceRepositoryMemory invoiceRepository = new InvoiceRepositoryMemory();
             invoiceService.setInvoiceRepository(invoiceRepository); // injection du repo dans le service
 
             invoiceController.createInvoice();
 
         }else if( configuration == 2) {
-            InvoiceControllerMichel invoiceControllerMichel = new InvoiceControllerMichel(); // via web
-            InvoiceServiceMichel invoiceServiceMichel= new InvoiceServiceMichel();
-            invoiceControllerMichel.setInvoiceService(invoiceServiceMichel); // injection de invoiceServiceMichel dans le controller
-            InvoiceRepositoryMichel invoiceRepositoryMichel = new InvoiceRepositoryMichel();
+            InvoiceControllerWeb invoiceControllerWeb = new InvoiceControllerWeb(); // via web
+            InvoiceServicePrefix invoiceServiceMichel= new InvoiceServicePrefix();
+            invoiceControllerWeb.setInvoiceService(invoiceServiceMichel); // injection de invoiceServiceMichel dans le controller
+            InvoiceRepositoryDatabase invoiceRepositoryMichel = new InvoiceRepositoryDatabase();
             invoiceServiceMichel.setInvoiceRepositoryMichel(invoiceRepositoryMichel); //Injection du repoMichel dans le service
 
-            invoiceControllerMichel.createInvoice();
+            invoiceControllerWeb.createInvoice();
 
         }else if( configuration == 3) {
-            InvoiceControllerMichel invoiceControllerChamboulleTout1 = new InvoiceControllerMichel(); //via web
-            InvoiceService invoiceService = new InvoiceService();
+            InvoiceControllerWeb invoiceControllerChamboulleTout1 = new InvoiceControllerWeb(); //via web
+            InvoiceServiceNumber invoiceService = new InvoiceServiceNumber();
             invoiceControllerChamboulleTout1.setInvoiceService(invoiceService); // injection de invoiceService avec numerotation normale des invoices dans le controller
-            InvoiceRepositoryMichel invoiceRepositoryChamboulleTout1 = new InvoiceRepositoryMichel();
+            InvoiceRepositoryDatabase invoiceRepositoryChamboulleTout1 = new InvoiceRepositoryDatabase();
             invoiceService.setInvoiceRepository(invoiceRepositoryChamboulleTout1); //Injection du repoMichel dans le service
 
             invoiceControllerChamboulleTout1.createInvoice();
 
         }else if( configuration == 4) {
-            InvoiceControllerChambouleToutMagasin2 invoiceControllerChambouleToutMagasin2 = new InvoiceControllerChambouleToutMagasin2(); //via scan code by shower
-            InvoiceService invoiceService = new InvoiceService();
-            invoiceControllerChambouleToutMagasin2.setInvoiceService(invoiceService); // injection de invoiceService avec numerotation normale des invoices dans le controller
-            InvoiceRepositoryMichel invoiceRepositoryChamboulleTout1 = new InvoiceRepositoryMichel();
+            InvoiceControllerDouchette invoiceControllerDouchette = new InvoiceControllerDouchette(); //via scan code by shower
+            InvoiceServiceNumber invoiceService = new InvoiceServiceNumber();
+            invoiceControllerDouchette.setInvoiceService(invoiceService); // injection de invoiceService avec numerotation normale des invoices dans le controller
+            InvoiceRepositoryDatabase invoiceRepositoryChamboulleTout1 = new InvoiceRepositoryDatabase();
             invoiceService.setInvoiceRepository(invoiceRepositoryChamboulleTout1); //Injection du repoMichel dans le service
 
-            invoiceControllerChambouleToutMagasin2.createInvoice();
+            invoiceControllerDouchette.createInvoice();
         }else{
             System.out.println("wrong choice, please try again");
             choiceInvoiceConfiguration();
