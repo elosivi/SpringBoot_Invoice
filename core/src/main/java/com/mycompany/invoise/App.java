@@ -31,49 +31,36 @@ public class App
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.println(" Type de controller ? keyboard: k /web: w / douchette: d");
-        String controllerType = sc.nextLine();
+        System.out.println(" Quelles est la classe controller souhaitée ? \n " +
+                "keyboard: com.mycompany.invoise.controller.InvoiceControllerKeyboard /web: com.mycompany.invoise.controller.InvoiceControllerWeb / douchette: com.mycompany.invoise.controller.InvoiceControllerDouchette");
+        String controllerClass = sc.nextLine();
 
-        System.out.println(" Type de service ? number : n / prefix : p ");
-        String serviceType = sc.nextLine();
+        System.out.println(" Quelles est la classe service souhaitée ? \n " +
+                "number : com.mycompany.invoise.service.InvoiceServiceNumber / prefix : com.mycompany.invoise.service.InvoiceServicePrefix ");
+        String serviceClass = sc.nextLine();
 
-        System.out.println(" Type de repository ? memory :m / database : d ");
-        String repositoryType = sc.nextLine();
+        System.out.println(" Quelles est la classe repository souhaitée ? \n" +
+                "memory :com.mycompany.invoise.repository.InvoiceRepositoryMemory  / database :com.mycompany.invoise.repository.InvoiceRepositoryDatabase  ");
+        String repositoryClass = sc.nextLine();
 
         InvoiceControllerInterface invoiceController = null;
-        switch (controllerType){
-            case "k" :
-                invoiceController = new InvoiceControllerKeyboard();
-                break;
-            case "w" :
-                invoiceController = new InvoiceControllerWeb();
-                break;
-            case "d" :
-                invoiceController = new InvoiceControllerDouchette();
-                break;
-        }
-
         InvoiceServiceInterface invoiceService = null;
-        switch (serviceType){
-            case "n" :
-                invoiceService = new InvoiceServiceNumber();
-                break;
-            case "p" :
-                invoiceService = new InvoiceServicePrefix();
-                break;
-        }
-
         InvoiceRepositoryInterface invoiceRepository = null;
-        switch(repositoryType){
-            case "m" :
-                invoiceRepository = new InvoiceRepositoryMemory();
-                break;
-            case "d" :
-                invoiceRepository = new InvoiceRepositoryDatabase();
-                break;
-        }
 
         //injection dependance
+        // reflexivité avec java : spring instabcie un objet sur la base d'un nom de classe donné par le user
+        // ex instanciation d'un controller qui retournera un objet InvoiceControllerInterface
+        //forName peut générer des exception -> try catch
+
+        try{
+            invoiceController=(InvoiceControllerInterface)Class.forName(controllerClass).getDeclaredConstructor().newInstance();
+            invoiceService= (InvoiceServiceInterface)Class.forName(serviceClass).getDeclaredConstructor().newInstance();
+            invoiceRepository= (InvoiceRepositoryInterface)Class.forName(repositoryClass).getDeclaredConstructor().newInstance();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
         invoiceController.setInvoiceService(invoiceService);
         invoiceService.setInvoiceRepository(invoiceRepository);
 
