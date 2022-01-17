@@ -20,7 +20,7 @@ public class InvoiceControllerWeb implements InvoiceControllerInterface{
     }
 
     public void createInvoice(){
-        System.out.println( "What is the customer name?" );
+        //System.out.println( "What is the customer name?" );
         String customerName = "Customer from web";
         Invoice invoice = new Invoice();
         invoice.setCustomerName(customerName);

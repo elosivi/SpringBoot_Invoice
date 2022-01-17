@@ -1,10 +1,13 @@
 package com.mycompany.invoise;
 
+import com.mycompany.invoise.controller.InvoiceControllerInterface;
 import com.mycompany.invoise.controller.InvoiceControllerKeyboard;
 import com.mycompany.invoise.controller.InvoiceControllerDouchette;
 import com.mycompany.invoise.controller.InvoiceControllerWeb;
+import com.mycompany.invoise.repository.InvoiceRepositoryInterface;
 import com.mycompany.invoise.repository.InvoiceRepositoryMemory;
 import com.mycompany.invoise.repository.InvoiceRepositoryDatabase;
+import com.mycompany.invoise.service.InvoiceServiceInterface;
 import com.mycompany.invoise.service.InvoiceServiceNumber;
 import com.mycompany.invoise.service.InvoiceServicePrefix;
 
@@ -26,51 +29,43 @@ public class App
 
     public static void choiceInvoiceConfiguration(){
 
-
-        System.out.println(" What is your configuration? 1(console) / 2 (web) / 3(web+ normal num invoice) / 4 (shower) ?");
         Scanner sc = new Scanner(System.in);
-        int configuration = sc.nextInt();
 
-        if(configuration == 1){
-            //injection des dépendances
-            InvoiceControllerKeyboard invoiceController = new InvoiceControllerKeyboard(); //via console
-            InvoiceServiceNumber invoiceService = new InvoiceServiceNumber();
-            invoiceController.setInvoiceService(invoiceService); // injection de invoiceService dans le controller
-            InvoiceRepositoryMemory invoiceRepository = new InvoiceRepositoryMemory();
-            invoiceService.setInvoiceRepository(invoiceRepository); // injection du repo dans le service
+        System.out.println(" Quelles est la classe controller souhaitée ? \n " +
+                "keyboard: com.mycompany.invoise.controller.InvoiceControllerKeyboard /web: com.mycompany.invoise.controller.InvoiceControllerWeb / douchette: com.mycompany.invoise.controller.InvoiceControllerDouchette");
+        String controllerClass = sc.nextLine();
 
-            invoiceController.createInvoice();
+        System.out.println(" Quelles est la classe service souhaitée ? \n " +
+                "number : com.mycompany.invoise.service.InvoiceServiceNumber / prefix : com.mycompany.invoise.service.InvoiceServicePrefix ");
+        String serviceClass = sc.nextLine();
 
-        }else if( configuration == 2) {
-            InvoiceControllerWeb invoiceControllerWeb = new InvoiceControllerWeb(); // via web
-            InvoiceServicePrefix invoiceServiceMichel= new InvoiceServicePrefix();
-            invoiceControllerWeb.setInvoiceService(invoiceServiceMichel); // injection de invoiceServiceMichel dans le controller
-            InvoiceRepositoryDatabase invoiceRepositoryMichel = new InvoiceRepositoryDatabase();
-            invoiceServiceMichel.setInvoiceRepositoryMichel(invoiceRepositoryMichel); //Injection du repoMichel dans le service
+        System.out.println(" Quelles est la classe repository souhaitée ? \n" +
+                "memory :com.mycompany.invoise.repository.InvoiceRepositoryMemory  / database :com.mycompany.invoise.repository.InvoiceRepositoryDatabase  ");
+        String repositoryClass = sc.nextLine();
 
-            invoiceControllerWeb.createInvoice();
+        InvoiceControllerInterface invoiceController = null;
+        InvoiceServiceInterface invoiceService = null;
+        InvoiceRepositoryInterface invoiceRepository = null;
 
-        }else if( configuration == 3) {
-            InvoiceControllerWeb invoiceControllerChamboulleTout1 = new InvoiceControllerWeb(); //via web
-            InvoiceServiceNumber invoiceService = new InvoiceServiceNumber();
-            invoiceControllerChamboulleTout1.setInvoiceService(invoiceService); // injection de invoiceService avec numerotation normale des invoices dans le controller
-            InvoiceRepositoryDatabase invoiceRepositoryChamboulleTout1 = new InvoiceRepositoryDatabase();
-            invoiceService.setInvoiceRepository(invoiceRepositoryChamboulleTout1); //Injection du repoMichel dans le service
+        //injection dependance
+        // reflexivité avec java : spring instabcie un objet sur la base d'un nom de classe donné par le user
+        // ex instanciation d'un controller qui retournera un objet InvoiceControllerInterface
+        //forName peut générer des exception -> try catch
 
-            invoiceControllerChamboulleTout1.createInvoice();
-
-        }else if( configuration == 4) {
-            InvoiceControllerDouchette invoiceControllerDouchette = new InvoiceControllerDouchette(); //via scan code by shower
-            InvoiceServiceNumber invoiceService = new InvoiceServiceNumber();
-            invoiceControllerDouchette.setInvoiceService(invoiceService); // injection de invoiceService avec numerotation normale des invoices dans le controller
-            InvoiceRepositoryDatabase invoiceRepositoryChamboulleTout1 = new InvoiceRepositoryDatabase();
-            invoiceService.setInvoiceRepository(invoiceRepositoryChamboulleTout1); //Injection du repoMichel dans le service
-
-            invoiceControllerDouchette.createInvoice();
-        }else{
-            System.out.println("wrong choice, please try again");
-            choiceInvoiceConfiguration();
+        try{
+            invoiceController=(InvoiceControllerInterface)Class.forName(controllerClass).getDeclaredConstructor().newInstance();
+            invoiceService= (InvoiceServiceInterface)Class.forName(serviceClass).getDeclaredConstructor().newInstance();
+            invoiceRepository= (InvoiceRepositoryInterface)Class.forName(repositoryClass).getDeclaredConstructor().newInstance();
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
+
+        invoiceController.setInvoiceService(invoiceService);
+        invoiceService.setInvoiceRepository(invoiceRepository);
+
+        invoiceController.createInvoice();
+
     }
 
 }
