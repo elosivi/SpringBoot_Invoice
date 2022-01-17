@@ -3,7 +3,7 @@ package com.mycompany.invoise.service;
 import com.mycompany.invoise.entity.Invoice;
 import com.mycompany.invoise.repository.InvoiceRepositoryInterface;
 
-public class InvoiceServicePrefix implements InvoiceServiceInterface{
+public abstract class InvoiceServicePrefix implements InvoiceServiceInterface{
 
     private static long lastNumber = 0L;
 
