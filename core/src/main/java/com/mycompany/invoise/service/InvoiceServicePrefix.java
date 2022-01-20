@@ -5,26 +5,26 @@ import com.mycompany.invoise.repository.InvoiceRepositoryInterface;
 
 import java.io.File;
 
-public abstract class InvoiceServicePrefix implements InvoiceServiceInterface{
+public class InvoiceServicePrefix implements InvoiceServiceInterface{
 
     private static long lastNumber;
     private String prefix;
-    private File fichier;
+    //private File fichier;
 
-    private InvoiceRepositoryInterface invoiceRepositoryMichel;
+    private InvoiceRepositoryInterface invoiceRepository;
 
-    public InvoiceRepositoryInterface getInvoiceRepositoryMichel() {
-        return invoiceRepositoryMichel;
+    public InvoiceRepositoryInterface getInvoiceRepository() {
+        return invoiceRepository;
     }
 
-    public void setInvoiceRepositoryMichel(InvoiceRepositoryInterface invoiceRepositoryMichel) {
-        this.invoiceRepositoryMichel = invoiceRepositoryMichel;
+    public void setInvoiceRepository(InvoiceRepositoryInterface invoiceRepositoryMichel) {
+        this.invoiceRepository = invoiceRepositoryMichel;
     }
 
     @Override
     public void createInvoice(Invoice invoice){
         invoice.setNumber(prefix + ++lastNumber);
-        invoiceRepositoryMichel.create(invoice);
+        invoiceRepository.create(invoice);
     }
 
     public static long getLastNumber() {

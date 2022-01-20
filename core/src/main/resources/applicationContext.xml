@@ -6,9 +6,8 @@
 
     <bean id="invoiceService" class="com.mycompany.invoise.service.InvoiceServicePrefix">
         <property name="invoiceRepository" ref="invoiceRepository"/>
-        <property name = "lastNumber" value="118"/>
-        <property name="prefix" value="NUM_"/>"
-        <property name="fichier" value="D:\DEV\JAVA\Udemy projects\SpringBoot_formation_Udemy\SpringBoot_Invoice"/>
+        <property name="lastNumber" value="118"/>
+        <property name="prefix" value="NUM_"/>
     </bean>
 
     <bean class="com.mycompany.invoise.controller.InvoiceControllerWeb">
