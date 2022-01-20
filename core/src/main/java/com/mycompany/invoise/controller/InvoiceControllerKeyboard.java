@@ -38,7 +38,7 @@ public class InvoiceControllerKeyboard implements InvoiceControllerInterface{
         String response = sc.nextLine();
 
         if(response.equalsIgnoreCase("y")){
-            App.choiceInvoiceConfiguration();
+            System.out.println("ok restart");
         }else if( response.equalsIgnoreCase("n")) {
             System.out.println("Ok thank!");
         }else{

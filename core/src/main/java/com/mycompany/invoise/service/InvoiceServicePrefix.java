@@ -3,24 +3,44 @@ package com.mycompany.invoise.service;
 import com.mycompany.invoise.entity.Invoice;
 import com.mycompany.invoise.repository.InvoiceRepositoryInterface;
 
-public abstract class InvoiceServicePrefix implements InvoiceServiceInterface{
+import java.io.File;
 
-    private static long lastNumber = 0L;
+public class InvoiceServicePrefix implements InvoiceServiceInterface{
 
-    private InvoiceRepositoryInterface invoiceRepositoryMichel;
+    private static long lastNumber;
+    private String prefix;
+    //private File fichier;
 
-    public InvoiceRepositoryInterface getInvoiceRepositoryMichel() {
-        return invoiceRepositoryMichel;
+    private InvoiceRepositoryInterface invoiceRepository;
+
+    public InvoiceRepositoryInterface getInvoiceRepository() {
+        return invoiceRepository;
     }
 
-    public void setInvoiceRepositoryMichel(InvoiceRepositoryInterface invoiceRepositoryMichel) {
-        this.invoiceRepositoryMichel = invoiceRepositoryMichel;
+    public void setInvoiceRepository(InvoiceRepositoryInterface invoiceRepositoryMichel) {
+        this.invoiceRepository = invoiceRepositoryMichel;
     }
 
     @Override
     public void createInvoice(Invoice invoice){
-        invoice.setNumber("INV_" + ++lastNumber);
-        invoiceRepositoryMichel.create(invoice);
+        invoice.setNumber(prefix + ++lastNumber);
+        invoiceRepository.create(invoice);
+    }
+
+    public static long getLastNumber() {
+        return lastNumber;
+    }
+
+    public static void setLastNumber(long lastNumber) {
+        InvoiceServicePrefix.lastNumber = lastNumber;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
     }
 }
 
