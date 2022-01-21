@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Value;
 
 public class InvoiceServicePrefix implements InvoiceServiceInterface{
 
-    @Value("$(invoice.lastNumber}")
+    @Value("${invoice.lastNumber}")
     private long lastNumber;
-    @Value("$(invoice.prefix}")
+    @Value("${invoice.prefix}")
     private String prefix;
 
     @Autowired
