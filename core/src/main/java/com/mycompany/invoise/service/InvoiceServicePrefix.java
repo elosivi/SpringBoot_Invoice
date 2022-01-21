@@ -3,14 +3,14 @@ package com.mycompany.invoise.service;
 import com.mycompany.invoise.entity.Invoice;
 import com.mycompany.invoise.repository.InvoiceRepositoryInterface;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.io.File;
+import org.springframework.beans.factory.annotation.Value;
 
 public class InvoiceServicePrefix implements InvoiceServiceInterface{
 
-    private static long lastNumber;
+    @Value("$(invoice.lastNumber}")
+    private long lastNumber;
+    @Value("$(invoice.prefix}")
     private String prefix;
-    //private File fichier;
 
     @Autowired
     private InvoiceRepositoryInterface invoiceRepository;
@@ -25,16 +25,16 @@ public class InvoiceServicePrefix implements InvoiceServiceInterface{
 
     @Override
     public void createInvoice(Invoice invoice){
-        invoice.setNumber(prefix + ++lastNumber);
+        invoice.setNumber(prefix+ (++lastNumber));
         invoiceRepository.create(invoice);
     }
 
-    public static long getLastNumber() {
+    public long getLastNumber() {
         return lastNumber;
     }
 
-    public static void setLastNumber(long lastNumber) {
-        InvoiceServicePrefix.lastNumber = lastNumber;
+    public void setLastNumber(long lastNumber) {
+        this.lastNumber = lastNumber;
     }
 
     public String getPrefix() {

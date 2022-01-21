@@ -8,14 +8,9 @@
     http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:annotation-config/>
-    <bean class="com.mycompany.invoise.service.InvoiceServicePrefix" >
+    <context:property-placeholder location="classpath:application.properties"/>
 
-        <property name="lastNumber" value="118"/>
-        <property name="prefix" value="NUM_"/>
-    </bean>
-
-    <bean class="com.mycompany.invoise.controller.InvoiceControllerWeb">
-
-    </bean>
+    <bean class="com.mycompany.invoise.service.InvoiceServicePrefix" ></bean>
+    <bean class="com.mycompany.invoise.controller.InvoiceControllerWeb"></bean>
     <bean class="com.mycompany.invoise.repository.InvoiceRepositoryDatabase"/>
 </beans>
