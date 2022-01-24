@@ -25,9 +25,4 @@ public class App {
 
     }
 
-    @Bean
-    public InvoiceServiceInterface configureInvoiceService() {
-        return new InvoiceServicePrefix();
-    }
-
 }
