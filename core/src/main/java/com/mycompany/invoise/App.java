@@ -19,7 +19,7 @@ public class App {
     public static void main(String[] args) {
         //ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         //ApplicationContext context = new AnnotationConfigApplicationContext(App.class);
-        ApplicationContext context = SpringApplication.run(App.class);
+        ApplicationContext context = SpringApplication.run(App.class, args);
         InvoiceControllerInterface invoiceControllerInterface = context.getBean(InvoiceControllerInterface.class); //id ou polymorphisme classe de hierarchie d'héritage notemment l'interface qui implémente le contrat
         invoiceControllerInterface.createInvoice();
 
