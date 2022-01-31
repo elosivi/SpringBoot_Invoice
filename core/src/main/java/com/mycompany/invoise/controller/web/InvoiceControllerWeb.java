@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Scanner;
 @Controller
 public class InvoiceControllerWeb implements InvoiceControllerInterface {
@@ -35,8 +37,10 @@ public class InvoiceControllerWeb implements InvoiceControllerInterface {
     }
 
     @RequestMapping("/invoice-home")
-    public String displayHome(){
+    public String displayHome(HttpServletRequest request){
         System.out.println("La méthode Home a été invoquée");
+        List<Invoice> invoices=invoiceService.getInvoiceList();
+        request.setAttribute("invoices",invoices);
         return "index";
     }
 }
