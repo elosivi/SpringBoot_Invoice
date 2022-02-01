@@ -20,7 +20,7 @@ public class InvoiceControllerKeyboard implements InvoiceControllerInterface {
         this.invoiceService = invoiceService;
     }
 
-    public void createInvoice(){
+    public String createInvoice(){
         System.out.println( "What is the customer name?" );
         Invoice invoice = new Invoice();
 
@@ -29,22 +29,8 @@ public class InvoiceControllerKeyboard implements InvoiceControllerInterface {
         invoice.setCustomerName(customerName);
         invoiceService.createInvoice(invoice);
 
-        AddOne();
+        return null;
 
     }
 
-    public void AddOne(){
-        System.out.println(" Add one more invoice? Y/N");
-        Scanner sc = new Scanner(System.in);
-        String response = sc.nextLine();
-
-        if(response.equalsIgnoreCase("y")){
-            System.out.println("ok restart");
-        }else if( response.equalsIgnoreCase("n")) {
-            System.out.println("Ok thank!");
-        }else{
-            System.out.println("wrong choice, please try again");
-            AddOne();
-        }
-    }
 }
