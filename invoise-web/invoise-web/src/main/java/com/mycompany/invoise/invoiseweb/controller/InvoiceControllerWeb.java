@@ -27,13 +27,16 @@ public class InvoiceControllerWeb implements InvoiceControllerInterface {
     }
 
     @PostMapping("")
-    public String createInvoice(){
+    public String createInvoice(@ModelAttribute Invoice invoice){
         System.out.println("la méthode create a été invoquée");
-        String customerName = "Customer from web";
-        Invoice invoice = new Invoice();
-        invoice.setCustomerName(customerName);
+
         invoiceService.createInvoice(invoice);
         return "invoice-created";
+    }
+
+    @GetMapping("/create-form")
+    public String displayInvoiceCreateForm(@ModelAttribute Invoice invoice){
+        return "invoice-create-form";
     }
 
     @GetMapping("/home")
@@ -50,8 +53,5 @@ public class InvoiceControllerWeb implements InvoiceControllerInterface {
         return "invoice-details";
     }
 
-    @GetMapping("/create-form")
-    public String displayInvoiceCreateForm(){
-        return "invoice-create-form";
-    }
+
 }

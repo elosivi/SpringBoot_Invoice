@@ -20,10 +20,9 @@ public class InvoiceControllerKeyboard implements InvoiceControllerInterface {
         this.invoiceService = invoiceService;
     }
 
-    public String createInvoice(){
+    public String createInvoice(Invoice invoice){
         System.out.println( "What is the customer name?" );
-        Invoice invoice = new Invoice();
-
+        invoice = new Invoice();
         Scanner sc = new Scanner(System.in);
         String customerName = sc.nextLine();
         invoice.setCustomerName(customerName);

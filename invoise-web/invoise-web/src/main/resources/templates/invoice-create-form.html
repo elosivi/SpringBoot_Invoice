@@ -5,11 +5,17 @@
     <title>Créer une facture</title>
 </head>
 <body>
-    <H1>Créer une facture</H1>
+    <H1>Create an invoice</H1>
 
-    <form th:action="@{/invoice}" method="POST">
+    <form th:action="@{/invoice}" method="POST" th:object="${invoice}">
 
-        <input type="submit" value="ok"/>
+            <label>Customer name:</label>
+            <input type="text" th:field="*{customerName}"/>
+
+            <label>Order number:</label>
+            <input type="text" th:field="*{orderNumber}"/>
+
+            <input type="submit" value="ok"/>
     </form>
 </body>
 </html>
