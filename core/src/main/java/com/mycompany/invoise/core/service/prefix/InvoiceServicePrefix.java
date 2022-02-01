@@ -53,5 +53,11 @@ public class InvoiceServicePrefix implements InvoiceServiceInterface {
     public void setPrefix(String prefix) {
         this.prefix = prefix;
     }
+
+    @Override
+    public Invoice getInvoiceByNumber(String number) {
+        return invoiceRepository.getById(number);
+    }
+
 }
 
