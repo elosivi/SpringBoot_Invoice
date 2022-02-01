@@ -5,6 +5,7 @@ import com.mycompany.invoise.core.entity.Invoice;
 import com.mycompany.invoise.core.service.InvoiceServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,17 +36,16 @@ public class InvoiceControllerWeb implements InvoiceControllerInterface {
     }
 
     @RequestMapping("/home")
-    public ModelAndView displayHome(){
+    public String displayHome(Model model){
         System.out.println("La méthode displayHome a été invoquée");
-        ModelAndView mv = new ModelAndView("invoice-home");
-        mv.addObject("invoices", invoiceService.getInvoiceList());
-        return mv;
+        model.addAttribute("invoices", invoiceService.getInvoiceList());
+        return "invoice-home";
     }
+
     @RequestMapping("/{id}")
-    public ModelAndView displayInvoice(@PathVariable("id")String number){
+    public String displayInvoice(@PathVariable("id")String number, Model model){ // nb: Model model always must be the last one param, at the end
         System.out.println("La méthode displayInvoice a été invoquée");
-        ModelAndView mv = new ModelAndView("invoice-details");
-        mv.addObject("invoice", invoiceService.getInvoiceByNumber(number));
-        return mv;
+        model.addAttribute("invoice", invoiceService.getInvoiceByNumber(number));
+        return "invoice-details";
     }
 }
