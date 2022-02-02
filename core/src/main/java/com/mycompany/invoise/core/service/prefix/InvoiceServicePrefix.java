@@ -28,9 +28,10 @@ public class InvoiceServicePrefix implements InvoiceServiceInterface {
     }
 
     @Override
-    public void createInvoice(Invoice invoice){
+    public Invoice createInvoice(Invoice invoice){
         invoice.setNumber(prefix+ (++lastNumber));
         invoiceRepository.create(invoice);
+        return invoice;
     }
 
     @Override

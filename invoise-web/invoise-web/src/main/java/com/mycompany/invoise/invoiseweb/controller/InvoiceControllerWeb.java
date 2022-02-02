@@ -26,19 +26,19 @@ public class InvoiceControllerWeb {
         this.invoiceService = invoiceService;
     }
 
-    @PostMapping("")
-    public String createInvoice(@Valid @ModelAttribute InvoiceForm invoiceForm, BindingResult results){
-        System.out.println("la méthode create a été invoquée");
-        if(results.hasErrors()){
-            return "invoice-create-form";
-        }
-
-        Invoice invoice = new Invoice();
-        invoice.setCustomerName(invoiceForm.getCustomerName());
-        invoice.setOrderNumber(invoiceForm.getOrderNumber());
-        invoiceService.createInvoice(invoice);
-        return "invoice-created";
-    }
+//    @PostMapping("")
+//    public String createInvoice(@Valid @ModelAttribute InvoiceForm invoiceForm, BindingResult results){
+//        System.out.println("la méthode create a été invoquée");
+//        if(results.hasErrors()){
+//            return "invoice-create-form";
+//        }
+//
+//        Invoice invoice = new Invoice();
+//        invoice.setCustomerName(invoiceForm.getCustomerName());
+//        invoice.setOrderNumber(invoiceForm.getOrderNumber());
+//        invoiceService.createInvoice(invoice);
+//        return "invoice-created";
+//    }
 
     @GetMapping("/create-form")
     public String displayInvoiceCreateForm(@ModelAttribute InvoiceForm invoiceForm){
@@ -52,12 +52,12 @@ public class InvoiceControllerWeb {
         return "invoice-home";
     }
 
-    @GetMapping("/{id}")
-    public String displayInvoice(@PathVariable("id")String number, Model model){ // nb: Model model always must be the last one param, at the end
-        System.out.println("La méthode displayInvoice a été invoquée");
-        model.addAttribute("invoice", invoiceService.getInvoiceByNumber(number));
-        return "invoice-details";
-    }
+//    @GetMapping("/{id}")
+//    public String displayInvoice(@PathVariable("id")String number, Model model){ // nb: Model model always must be the last one param, at the end
+//        System.out.println("La méthode displayInvoice a été invoquée");
+//        model.addAttribute("invoice", invoiceService.getInvoiceByNumber(number));
+//        return "invoice-details";
+//    }
 
 
 }
