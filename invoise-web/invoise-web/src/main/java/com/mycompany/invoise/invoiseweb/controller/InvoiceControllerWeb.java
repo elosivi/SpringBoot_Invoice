@@ -1,19 +1,19 @@
 package com.mycompany.invoise.invoiseweb.controller;
 
-import com.mycompany.invoise.core.controller.InvoiceControllerInterface;
 import com.mycompany.invoise.core.entity.Invoice;
 import com.mycompany.invoise.core.service.InvoiceServiceInterface;
+import com.mycompany.invoise.invoiseweb.form.InvoiceForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/invoice")
-public class InvoiceControllerWeb implements InvoiceControllerInterface {
+public class InvoiceControllerWeb {
 
     @Autowired
     private InvoiceServiceInterface invoiceService;
@@ -27,15 +27,21 @@ public class InvoiceControllerWeb implements InvoiceControllerInterface {
     }
 
     @PostMapping("")
-    public String createInvoice(@ModelAttribute Invoice invoice){
+    public String createInvoice(@Valid @ModelAttribute InvoiceForm invoiceForm, BindingResult results){
         System.out.println("la méthode create a été invoquée");
+        if(results.hasErrors()){
+            return "invoice-create-form";
+        }
 
+        Invoice invoice = new Invoice();
+        invoice.setCustomerName(invoiceForm.getCustomerName());
+        invoice.setOrderNumber(invoiceForm.getOrderNumber());
         invoiceService.createInvoice(invoice);
         return "invoice-created";
     }
 
     @GetMapping("/create-form")
-    public String displayInvoiceCreateForm(@ModelAttribute Invoice invoice){
+    public String displayInvoiceCreateForm(@ModelAttribute InvoiceForm invoiceForm){
         return "invoice-create-form";
     }
 

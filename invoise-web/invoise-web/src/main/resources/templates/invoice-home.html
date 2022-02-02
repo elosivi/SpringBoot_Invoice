@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Gestion des factures</title>
+    <title>Invoices managment</title>
 </head>
 <body>
-    <H1>Bienvenu(e) dans la page de gestion des factures</H1>
-        <h2>Actions disponibles:    </h2>
+    <H1>Welcome into invoices management page</H1>
+
         <ul>
-            <li><a href="create-form">Ajout de facture</a></li>
+            <li><a href="create-form">Add an invoice</a></li>
         </ul>
     <table>
         <tr th:each="invoice: ${invoices}">
