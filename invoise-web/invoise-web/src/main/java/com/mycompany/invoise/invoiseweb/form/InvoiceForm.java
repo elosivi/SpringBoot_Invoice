@@ -7,10 +7,11 @@ import javax.validation.constraints.Size;
 public class InvoiceForm {
 
     //@Pattern(regexp="INV")
-    @Size(min=10,max=13)
+
     private String number;
     @NotBlank(message="Un nom de client doit être renseigné")
     private String customerName;
+    @Size(min=10,max=13)
     private String orderNumber;
 
 

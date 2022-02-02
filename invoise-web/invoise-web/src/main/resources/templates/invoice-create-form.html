@@ -10,10 +10,12 @@
     <form th:action="@{/invoice}" method="POST" th:object="${invoiceForm}">
 
             <label>Customer name:</label>
-            <input type="text" th:field="*{customerName}"/>
+            <input type="text" th:field="*{customerName}" />
+            <div th:if =${#fields.hasErrors('customerName')} th:errors="*{customerName}" style="color:red"> </div>
 
             <label>Order number:</label>
             <input type="text" th:field="*{orderNumber}"/>
+            <div th:if =${#fields.hasErrors('orderNumber')} th:errors="*{orderNumber}" style="color:red"> </div>
 
             <input type="submit" value="ok"/>
     </form>
