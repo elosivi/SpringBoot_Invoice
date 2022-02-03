@@ -26,6 +26,12 @@
       <version>5.2.3.RELEASE</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>5.2.3.RELEASE</version>
+    </dependency>
+
 
     <dependency>
       <groupId>junit</groupId>
@@ -33,6 +39,7 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+
   </dependencies>
 
 
