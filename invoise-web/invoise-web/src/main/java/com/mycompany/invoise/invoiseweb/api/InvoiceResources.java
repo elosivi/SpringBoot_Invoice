@@ -27,27 +27,21 @@ public class InvoiceResources {
         this.invoiceService = invoiceService;
     }
 
-    @PostMapping("")
+    @PostMapping
     public Invoice create(@RequestBody Invoice invoice){
         System.out.println("la méthode create a été invoquée");
         return invoiceService.createInvoice(invoice);
-
     }
 
-//    @GetMapping("/create-form")
-//    public String displayInvoiceCreateForm(@ModelAttribute InvoiceForm invoiceForm){
-//        return "invoice-create-form";
-//    }
-
-    @GetMapping("")
+    @GetMapping
     public List<Invoice> list(){
-        System.out.println("La méthode displayHome a été invoquée");
+        System.out.println("La méthode list() a été invoquée");
         return invoiceService.getInvoiceList();
     }
 
     @GetMapping("/{id}")
     public Invoice get (@PathVariable("id")String number, Model model){ // nb: Model model always must be the last one param, at the end
-        System.out.println("La méthode displayInvoice a été invoquée");
+        System.out.println("La méthode get a été invoquée");
         return invoiceService.getInvoiceByNumber(number);
     }
 

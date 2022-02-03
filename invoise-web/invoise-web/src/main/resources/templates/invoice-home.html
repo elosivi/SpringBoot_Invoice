@@ -2,22 +2,27 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Invoices managment</title>
+    <title>Gestion des factures</title>
+    <link th:ref="@{css/style.css}" rel="stylesheet"/>
 </head>
 <body>
-    <H1>Welcome into invoices management page</H1>
+<h1>Bienvenu(e) dans la page de gestion des factures.</h1>
+<h2>Actions disponibles : </h2>
+<ul>
+    <li><a href="create-form">Ajout de facture</a></li>
+</ul>
+<section class="container">
+    <div class="left-half">
+        <article id="invoice-list">
 
-        <ul>
-            <li><a href="create-form">Add an invoice</a></li>
-        </ul>
-    <table>
-        <tr th:each="invoice: ${invoices}">
-            <td>
-                <a th:href="${invoice.number}" th:text="${invoice.number}"/>
-            </td>
-            <td th:text="${invoice.customerName}"></td>
-        </tr>
-    </table>
+        </article>
+    </div>
+    <div class="right-half">
+        <article id="invoice-detail">
+
+        </article>
+    </div>
+</section>
 
 </body>
 </html>
