@@ -25,14 +25,16 @@ public class InvoiceRepositoryDatabase implements InvoiceRepositoryInterface {
 
     @Override
     public List<Invoice> list(){
-        Invoice invoice1 = new Invoice();
-        invoice1.setNumber("NUM_1");
-        invoice1.setCustomerName("TOTO");
-        Invoice invoice2 = new Invoice();
-        invoice2.setNumber("NUM_2");
-        invoice2.setCustomerName("TOTO-2");
-
-        return List.of(invoice1,invoice2);
+//        Invoice invoice1 = new Invoice();
+//        invoice1.setNumber("NUM_1");
+//        invoice1.setCustomerName("TOTO");
+//        Invoice invoice2 = new Invoice();
+//        invoice2.setNumber("NUM_2");
+//        invoice2.setCustomerName("TOTO-2");
+//
+//        return List.of(invoice1,invoice2);
+        return jdbcTemplate.query("SELECT INVOICE_NUMBER, CUSTOMER_NAME FROM INVOICE",
+                (rs,rowNum) -> new Invoice(String.valueOf(rs.getLong("INVOICE_NUMBER")), rs.getString("CUSTOMER_NAME")));
     }
 
     @Override
