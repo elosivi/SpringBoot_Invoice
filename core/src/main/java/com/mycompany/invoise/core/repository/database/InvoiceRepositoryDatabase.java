@@ -4,6 +4,7 @@ import com.mycompany.invoise.core.entity.Invoice;
 import com.mycompany.invoise.core.repository.InvoiceRepositoryInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -12,8 +13,8 @@ import java.util.List;
 @Repository
 public class InvoiceRepositoryDatabase implements InvoiceRepositoryInterface {
 
-    //@Autowired
-   // private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
     private static List<Invoice> invoices = new ArrayList<>();
 
     @Override
